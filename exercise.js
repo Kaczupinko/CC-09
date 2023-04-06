@@ -109,3 +109,24 @@ sumOfData();
 // Wykorzystanie RxJS do przetwarzania strumienia danych
 
 
+import { fromEvent } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
+
+function streamProcessing() {
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+    const observable = fromEvent(input, 'input')
+        .pipe(
+            map((event) => event.target.value),
+            filter((value) => value.length > 3),
+            map((value) => value.toUpperCase())
+        );
+    observable.subscribe((value) => {
+        output.textContent = value;
+    });
+}
+
+streamProcessing();
+
+/*
+
